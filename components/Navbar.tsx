@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-// import { motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +20,12 @@ const Navbar = () => {
     useEffect(() => {
         localStorage.setItem("isOpen", JSON.stringify(isOpen));
     }, [isOpen]);
+
+    // Define animation
+    const buttonVariants = {
+        open: { rotate: 90 },
+        closed: { rotate: 0 },
+    };
 
     return (
         <nav className="bg-gray-800">
@@ -53,10 +59,12 @@ const Navbar = () => {
                         </div>
                     </div>
                     <div className="flex -mr-2 md:hidden">
-                        <button
+                        <motion.button
                             onClick={toggleNavbar}
                             type="button"
                             className="inline-flex items-center justify-center p-2 text-gray-400 bg-gray-800 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                            variants={buttonVariants}
+                            animate={isOpen ? "open" : "closed"}
                         >
                             <span className="sr-only">Open main menu</span>
                             {isOpen ? (
@@ -92,7 +100,7 @@ const Navbar = () => {
                                     />
                                 </svg>
                             )}
-                        </button>
+                        </motion.button>
                     </div>
                 </div>
             </div>
