@@ -1,95 +1,137 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { CgMonday } from "react-icons/cg";
-import { motion } from "framer-motion";
-
-const NavItem: FunctionComponent<{
-    activeItem: string;
-    setActiveItem: Function;
-    name: string;
-    route: string;
-}> = ({ activeItem, setActiveItem, name, route }) => {
-    return activeItem !== name ? (
-        <Link
-            className="block px-4 py-1 font-semibold text-gray-400 md:p-2 lg:px-4"
-            href={route}
-        >
-            <span onClick={() => setActiveItem(name)}>
-                <motion.span whileHover={{ scale: 1.1 }}>{name}</motion.span>
-            </span>
-        </Link>
-    ) : null;
-};
+// import { motion } from "framer-motion";
 
 const Navbar = () => {
-    const [activeItem, setActiveItem] = useState("");
+    const [isOpen, setIsOpen] = useState(false);
 
-    // const { pathname } = useRouter();
+    const toggleNavbar = () => {
+        setIsOpen(!isOpen);
+        localStorage.setItem("isOpen", JSON.stringify(isOpen));
+    };
+
+    useEffect(() => {
+        const storedIsOpen = localStorage.getItem("isOpen");
+        if (storedIsOpen !== null) {
+            setIsOpen(JSON.parse(storedIsOpen));
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem("isOpen", JSON.stringify(isOpen));
+    }, [isOpen]);
 
     return (
-        <nav
-            id="nav"
-            className="sticky top-0 z-50 text-white bg-gray-800 shadow"
-            role="navigation"
-        >
-            <div className="container flex flex-wrap items-center p-4 mx-auto md:flex-no-wrap">
-                <div className="mr-4 md:mr-8">
-                    <a href="#" rel="home">
-                        <span className="text-xl text-white">Some Site</span>
-                    </a>
-                </div>
-                <div className="ml-auto md:hidden">
-                    <button
-                        className="flex items-center px-3 py-2 border rounded"
-                        type="button"
-                    >
-                        <svg
-                            className="w-3 h-3 text-white"
-                            viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg"
+        <nav className="bg-gray-800">
+            <div className="px-4 mx-auto sm:px-6 lg:px-8">
+                <div className="flex items-center justify-between h-16">
+                    <div className="flex items-center">
+                        <Link href="/" className="flex-shrink-0 text-white">
+                            My Logo
+                        </Link>
+                    </div>
+                    <div className="hidden md:block">
+                        <div className="flex items-baseline ml-10 space-x-4">
+                            <Link
+                                href="/"
+                                className="px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-md focus:outline-none focus:text-white focus:bg-gray-700"
+                            >
+                                Home
+                            </Link>
+                            <Link
+                                href="/about"
+                                className="px-3 py-2 text-sm font-medium text-white rounded-md hover:text-gray-300 hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+                            >
+                                About
+                            </Link>
+                            <Link
+                                href="/contact"
+                                className="px-3 py-2 text-sm font-medium text-white rounded-md hover:text-gray-300 hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+                            >
+                                Contact
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="flex -mr-2 md:hidden">
+                        <button
+                            onClick={toggleNavbar}
+                            type="button"
+                            className="inline-flex items-center justify-center p-2 text-gray-400 bg-gray-800 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                         >
-                            <title>Menu</title>
-                            <path
-                                fill="currentColor"
-                                d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"
-                            />
-                        </svg>
-                    </button>
+                            <span className="sr-only">Open main menu</span>
+                            {isOpen ? (
+                                <svg
+                                    className="block w-6 h-6"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M6 18L18 6M6 6l12 12"
+                                    />
+                                </svg>
+                            ) : (
+                                <svg
+                                    className="block w-6 h-6"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M4 6h16M4 12h16M4 18h16"
+                                    />
+                                </svg>
+                            )}
+                        </button>
+                    </div>
                 </div>
-                <div
-                    id="menu"
-                    className="w-full h-0 transition-all duration-500 ease-out md:transition-none md:w-auto md:flex-grow md:flex md:items-center"
-                >
-                    <ul
-                        id="ulMenu"
-                        className="flex flex-col mx-4 mt-5 duration-300 ease-out sm:transition-none md:flex-row md:items-center md:mx-0 md:ml-auto md:mt-0 md:pt-0 md:border-0"
-                    >
-                        <li>
-                            <NavItem
-                                activeItem={activeItem}
-                                setActiveItem={setActiveItem}
-                                name="About"
-                                route="/"
-                            />
-                        </li>
-                        <li>
-                            <NavItem
-                                activeItem={activeItem}
-                                setActiveItem={setActiveItem}
-                                name="Contact"
-                                route="/contact"
-                            />
-                        </li>
-                        <li>
-                            <NavItem
-                                activeItem={activeItem}
-                                setActiveItem={setActiveItem}
-                                name="Services"
-                                route="/services"
-                            />
-                        </li>
-                    </ul>
+            </div>
+            <div className={`${isOpen ? "block" : "hidden"} md:hidden`}>
+                <div className="flex items-center justify-center flex-1 md:items-stretch md:justify-start">
+                    <div className="flex-shrink-0">
+                        <div className="md:block md:ml-6">
+                            <div className="flex space-x-4">
+                                <Link
+                                    href="/"
+                                    className="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white"
+                                    onClick={() => setIsOpen(false)}
+                                >
+                                    Home
+                                </Link>
+                                <Link
+                                    href="/about"
+                                    className="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white"
+                                    onClick={() => setIsOpen(false)}
+                                >
+                                    About
+                                </Link>
+                                <Link
+                                    href="/contact"
+                                    className="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white"
+                                    onClick={() => setIsOpen(false)}
+                                >
+                                    Contact
+                                </Link>
+                                <Link
+                                    href="/services"
+                                    className="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white"
+                                    onClick={() => setIsOpen(false)}
+                                >
+                                    Services
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
