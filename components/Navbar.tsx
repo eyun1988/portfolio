@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
+import Router from "next/router";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
+import gifLogo from "../public/assets/DataMilk.gif";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -32,29 +35,39 @@ const Navbar = () => {
             <div className="px-4 mx-auto sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     <div className="flex items-center">
-                        <Link href="/" className="flex-shrink-0 text-white">
-                            My Logo
+                        <Link href="/" className="flex-shrink-0">
+                            <Image
+                                src={gifLogo}
+                                alt="My Logo"
+                                className="w-auto h-10"
+                            />
                         </Link>
                     </div>
                     <div className="hidden md:block">
                         <div className="flex items-baseline ml-10 space-x-4">
                             <Link
                                 href="/"
-                                className="px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-md focus:outline-none focus:text-white focus:bg-gray-700"
+                                className={`px-3 py-2 text-sm font-medium text-white rounded-md hover:text-gray-300 hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 active:bg-gray-200`}
                             >
                                 Home
                             </Link>
                             <Link
                                 href="/about"
-                                className="px-3 py-2 text-sm font-medium text-white rounded-md hover:text-gray-300 hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+                                className={`px-3 py-2 text-sm font-medium text-white rounded-md hover:text-gray-300 hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 active:bg-gray-200`}
                             >
                                 About
                             </Link>
                             <Link
                                 href="/contact"
-                                className="px-3 py-2 text-sm font-medium text-white rounded-md hover:text-gray-300 hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+                                className={`px-3 py-2 text-sm font-medium text-white rounded-md hover:text-gray-300 hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 active:bg-gray-200`}
                             >
                                 Contact
+                            </Link>
+                            <Link
+                                href="/services"
+                                className={`px-3 py-2 text-sm font-medium text-white rounded-md hover:text-gray-300 hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 active:bg-gray-200`}
+                            >
+                                Services
                             </Link>
                         </div>
                     </div>
@@ -111,28 +124,28 @@ const Navbar = () => {
                             <div className="flex space-x-4">
                                 <Link
                                     href="/"
-                                    className="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white"
+                                    className={`px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white`}
                                     onClick={() => setIsOpen(false)}
                                 >
                                     Home
                                 </Link>
                                 <Link
                                     href="/about"
-                                    className="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white"
+                                    className={`px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white`}
                                     onClick={() => setIsOpen(false)}
                                 >
                                     About
                                 </Link>
                                 <Link
                                     href="/contact"
-                                    className="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white"
+                                    className={`px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white`}
                                     onClick={() => setIsOpen(false)}
                                 >
                                     Contact
                                 </Link>
                                 <Link
                                     href="/services"
-                                    className="px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white"
+                                    className={`px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700 hover:text-white`}
                                     onClick={() => setIsOpen(false)}
                                 >
                                     Services

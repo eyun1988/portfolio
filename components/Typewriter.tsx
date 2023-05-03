@@ -23,7 +23,7 @@ const Typewriter: React.FC<TypewriterProps> = ({ text }) => {
 
     return (
         <motion.div
-            className="text-2xl font-bold text-white"
+            className="text-2xl font-bold "
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}

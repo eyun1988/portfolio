@@ -20,8 +20,10 @@ const HomeScreen: React.FC = () => {
 
             {/* TODO: uncomment, delete Home */}
             {/* {!isLoaded && (
-                <div className="flex items-center justify-center w-full h-screen">
-                    <Typewriter text="Loading" />
+                <div className="flex items-center justify-center h-screen">
+                    <div className="p-6">
+                        <Typewriter text="Loading" />
+                    </div>
                 </div>
             )}
             {isLoaded && <Home />} */}
@@ -37,7 +39,7 @@ const Home: React.FC = () => {
                 <title>Home Page</title>
             </Head>
             {/* make main content */}
-            <div className="flex items-center justify-center w-full h-screen">
+            <div className="flex items-center justify-center w-full">
                 <h1 className="text-3xl font-bold text-gray-800">
                     Welcome to my website!
                 </h1>
